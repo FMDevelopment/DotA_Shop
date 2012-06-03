@@ -36,5 +36,15 @@
       <artifactId>spoutplugin</artifactId>
       <version>dev-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>com.orange451</groupId>
+      <artifactId>UltimateArenaFMDev</artifactId>
+      <version>1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.esotericsoftware</groupId>
+      <artifactId>yamlbeans</artifactId>
+      <version>1.06</version>
+    </dependency>
   </dependencies>
 </project>

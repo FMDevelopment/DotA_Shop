@@ -1,3 +1,7 @@
 name: DotA Shop
-version: 0.0.1
-main: de.fmstudio.de.dota_shop.Dota_Shop
+version: 0.1.1
+main: de.fmstudio.de.dota_shop.DotA_Shop
+commands: 
+  dota:
+    description:
+    usage:
