@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>de.fmstudio.dev</groupId>
-  <artifactId>DotA_Shop</artifactId>
+  <artifactId>DotA_Shop_for_Ultimate_Arena</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>DotA_Shop</name>
+  <name>DotA_Shop_for_Ultimate_Arena</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -25,11 +25,7 @@
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
       <version>1.2.5-R3.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.iCo6</groupId>
-      <artifactId>iConomy</artifactId>
-      <version>6.0</version>
+      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>org.spout</groupId>
@@ -38,13 +34,8 @@
     </dependency>
     <dependency>
       <groupId>com.orange451</groupId>
-      <artifactId>UltimateArenaFMDev</artifactId>
-      <version>1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.esotericsoftware</groupId>
-      <artifactId>yamlbeans</artifactId>
-      <version>1.06</version>
+      <artifactId>UltimateArena</artifactId>
+      <version>Ua_Fork</version>
     </dependency>
   </dependencies>
 </project>
