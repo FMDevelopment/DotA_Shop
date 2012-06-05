@@ -8,18 +8,17 @@ package de.fmstudio.dev.dota_shop;
  *
  * @author Max
  */ 
-import de.fmstudio.dev.dota_shop.micronomy.AcoountRunner;
-import java.util.logging.*;
+import de.fmstudio.dev.dota_shop.micronomy.Account;
+import de.fmstudio.dev.dota_shop.micronomy.AccountManager;
 import java.io.*;
 import java.util.*;
-import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.yaml.snakeyaml.Yaml;
 public class DotA_Shop extends JavaPlugin {
     private String arena;
-    private AcoountRunner manager = new AcoountRunner();
+    public static AccountManager manager = new AccountManager();
     public File config = new File("plugins/DotaShop","config.yml");
     @Override
     public void onEnable(){
@@ -63,7 +62,7 @@ public class DotA_Shop extends JavaPlugin {
         player = (Player) sender;
     if(args.length==2){
         if(cmd.getName().equalsIgnoreCase("ua")&&(args[1].equalsIgnoreCase("j")||args[1].equalsIgnoreCase("join"))&&args[2].equals(arena)){ 
-            
+            manager.createAccount(player);
         }
     }
         if(cmd.getName().equals("dota")&&args[1].equalsIgnoreCase("arena")){
@@ -88,17 +87,26 @@ public class DotA_Shop extends JavaPlugin {
             catch (IOException ex){return false;}
         }
         }else{
-            player.sendMessage("Too many or less Arguments (Correct usage: /dota arena [arenaname]");
+            player.sendMessage("Too many or less arguments (Correct usage: /dota arena [arenaname]");
             return false;
         }
      
     if(cmd.getName().equals("dota")&&(args[1].equals("gold")||args[1].equals("g")||args[1].equals("money"))){
         if(args.length == 2){
             Player p = (Player)sender;
-            p.sendMessage("Sorry But this feature isnt completed yet");
+            Enumeration e = manager.accounts.elements();
+            while(e.hasMoreElements()){
+                Account acc = (Account)e;
+                if(acc.getName().equals(p.getName())){
+                    p.sendMessage("You current Gold amount is " + acc.getGold()); break;
+                }
+                else{
+                    e.nextElement();
+                }
+            }
         }
         else{
-            player.sendMessage("Too many or less Arguments (Correct usage: /dota gold|g|money)");
+            player.sendMessage("Too many or less arguments (Correct usage: /dota gold|g|money)");
             return false;
         }
     }

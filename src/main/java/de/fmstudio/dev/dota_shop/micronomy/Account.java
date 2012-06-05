@@ -11,8 +11,9 @@ package de.fmstudio.dev.dota_shop.micronomy;
 public class Account {
     int gold;
     String name;
-    public void Account(){
-        
+    public void Account(String n, int g){
+        gold = g;
+        name = n;
   }
     public void increaseGold(){
         gold++;
@@ -27,5 +28,8 @@ public class Account {
     public void removeGold(int g){
         synchronized(this){
         gold = gold - g;}
+    }
+    public String getName(){
+        return name;
     }
 }

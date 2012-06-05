@@ -15,20 +15,37 @@ import org.bukkit.entity.Player;
  * @author Max
  */
 public class ArenaPlayerListener{
-    private UltimateArena ua;
-    public void ArenaPlayerListener(Player player){
+
+    public boolean isInArena(Player player){
         Plugin tester = Bukkit.getPluginManager().getPlugin("UltimateArena");
         try {
-            ua = (UltimateArena)tester;
+            UltimateArena ua = (UltimateArena)tester;        
+            if (ua.isInArena(player)){
+                return true;
+        }
         }
         catch(ClassCastException ex) {
             player.sendMessage("There's a plugin disguised as Ultimate Arena! It's not the one I was expecting!");
         }
-    }
-    public boolean isInArena(Player player){
-        if (ua.isInArena(player)){
-                return true;
-        }
+
         return false;
     }
+    public static boolean isInArena(String pn){            
+        Player player = Bukkit.getPlayer(pn);
+        Plugin tester = Bukkit.getPluginManager().getPlugin("UltimateArena");
+        try {
+            UltimateArena ua = (UltimateArena)tester;        
+
+            if (ua.isInArena(player)){
+                return true;
+        }
+        }
+        catch(ClassCastException ex) {
+            player.sendMessage("There's a plugin disguised as Ultimate Arena! It's not the one I was expecting!");
+        }
+
+            return false;
+    }
+        
+    
 }
