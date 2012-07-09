@@ -8,6 +8,7 @@ package de.fmstudio.dev.dota_shop;
  *
  * @author Max
  */ 
+import Spout.SpoutGoldUpdater;
 import de.fmstudio.dev.dota_shop.micronomy.Account;
 import de.fmstudio.dev.dota_shop.micronomy.AccountManager;
 import java.io.*;
@@ -19,10 +20,11 @@ import org.yaml.snakeyaml.Yaml;
 public class DotA_Shop extends JavaPlugin {
     private String arena;
     public static AccountManager manager = new AccountManager();
+    public static Vector updatemanager = new Vector();
     public File config = new File("plugins/DotaShop","config.yml");
     @Override
     public void onEnable(){
-        System.out.println("DotA Shop for Ultimate Arena 0.2.1 Enabled");
+        System.out.println("DotA Shop for Ultimate Arena 0.4.1 Enabled");
         boolean checkconf = (config.exists());
         if(checkconf)
         {
@@ -52,7 +54,7 @@ public class DotA_Shop extends JavaPlugin {
     
     @Override
     public void onDisable(){
-        System.out.println("Dota Shop for Ultimate Arena 0.2.1 Disabled");
+        System.out.println("Dota Shop for Ultimate Arena 0.4.1 Disabled");
     }
     
     @Override
@@ -61,19 +63,24 @@ public class DotA_Shop extends JavaPlugin {
         if(sender instanceof Player){
         player = (Player) sender;
     if(args.length==2){
-        if(cmd.getName().equalsIgnoreCase("ua")&&(args[1].equalsIgnoreCase("j")||args[1].equalsIgnoreCase("join"))&&args[2].equals(arena)){ 
+        if(cmd.getName().equalsIgnoreCase("ua")&&(args[0].equalsIgnoreCase("j")||args[0].equalsIgnoreCase("join"))&&args[1].equals(arena)){ 
             manager.createAccount(player);
+            SpoutGoldUpdater update = new SpoutGoldUpdater();
+            update.startUpdating(player);
         }
     }
-        if(cmd.getName().equals("dota")&&args[1].equalsIgnoreCase("arena")){
+    else if(args.length==1){
+
+    
+if(cmd.getName().equals("dota")&&args[0].equalsIgnoreCase("arena")){
             if(args.length == 3) {
             try {
-                arena = args[2];
+                arena = args[0];
                 Yaml yaml = new Yaml();
                 Map conf = (Map)yaml.load(new FileInputStream(config));
                 String save = conf.get("initial-value").toString();
                 conf.clear();
-                conf.put("arena", args[2]);
+                conf.put("arena", args[0]);
                 conf.put("initial-value", save);
                 PrintWriter writer = new PrintWriter(new FileWriter(config));
                 if(config.exists()){
@@ -91,7 +98,7 @@ public class DotA_Shop extends JavaPlugin {
             return false;
         }
      
-    if(cmd.getName().equals("dota")&&(args[1].equals("gold")||args[1].equals("g")||args[1].equals("money"))){
+    if(cmd.getName().equals("dota")&&(args[0].equals("gold")||args[0].equals("g")||args[0].equals("money"))){
         if(args.length == 2){
             Player p = (Player)sender;
             Enumeration e = manager.accounts.elements();
@@ -110,7 +117,19 @@ public class DotA_Shop extends JavaPlugin {
             return false;
         }
     }
-    }else {
+    else if(cmd.getName().equals("dota")){
+            player.sendMessage("This is DotA Shop for Ultimate Arena!");
+            player.sendMessage("|-----------------------------------|");
+            player.sendMessage("|-------------Commands--------------|");
+            player.sendMessage("|------/dota arena [arenaname]------|");
+            player.sendMessage("|-----Usage: Set DotA Arena Name----|");
+            player.sendMessage("|-----------------------------------|");
+            player.sendMessage("|--------/dota gold/g/money---------|");
+            player.sendMessage("|-Usage: Get Current Gold (in arena)|");
+            player.sendMessage("|-----------------------------------|");
+            player.sendMessage("|----DotA Shop by FM Development----|");
+        }
+    }}else {
             sender.sendMessage("You must be a Player!");
 
             return false;
